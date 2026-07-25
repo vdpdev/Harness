@@ -1,0 +1,31 @@
+#!/bin/sh
+set -e
+
+echo "=== Pre-push: running full CI suite ==="
+
+echo ""
+echo "--- format check ---"
+pnpm run format:check
+
+echo ""
+echo "--- lint ---"
+pnpm run lint
+
+echo ""
+echo "--- typecheck ---"
+pnpm run typecheck
+
+echo ""
+echo "--- test ---"
+pnpm test
+
+echo ""
+echo "--- repo health ---"
+pnpm run repo-health
+
+echo ""
+echo "--- verify repo structure ---"
+pnpm run verify:repo-structure
+
+echo ""
+echo "=== Pre-push: all checks passed ==="

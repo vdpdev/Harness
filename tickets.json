@@ -1,0 +1,282 @@
+{
+  "meta": {
+    "nextId": 27
+  },
+  "tickets": [
+    {
+      "id": "H-1",
+      "title": "Path traversal vulnerability in CLI scaffold (bin/index.js)",
+      "status": "done",
+      "parent": "",
+      "blockedBy": [],
+      "notes": "Fixed: bin/index.js:31 validates projectName with /^[a-zA-Z0-9._-]+$/ and rejects .. and absolute paths. bin/index.js:38 checks targetDir is inside cwd.",
+      "createdAt": "2026-07-25T00:00:00.000Z",
+      "updatedAt": "2026-07-25T00:00:00.000Z",
+      "doneAt": "2026-07-25T12:17:16.260Z"
+    },
+    {
+      "id": "H-2",
+      "title": "publish.yml missing NODE_AUTH_TOKEN — npm publish always fails",
+      "status": "done",
+      "parent": "",
+      "blockedBy": [],
+      "notes": "Won't-fix: npm publishing uses OpenID Connect (OIDC) provenance, not tokens. Auth handled by trust relationship between npm package and GitHub repo. Documented in .agents-harness.md.",
+      "createdAt": "2026-07-25T00:00:00.000Z",
+      "updatedAt": "2026-07-25T00:00:00.000Z",
+      "doneAt": "2026-07-25T11:47:10.487Z"
+    },
+    {
+      "id": "H-3",
+      "title": "Placeholder test suite — pnpm test always passes",
+      "status": "done",
+      "parent": "",
+      "blockedBy": [],
+      "notes": "Fixed: Replaced placeholder assert.ok(true) with 10 real CLI scaffold tests covering: directory creation, package name/private flag, bin/files removal, tickets.json reset, missing args, path traversal, invalid chars, non-empty dir rejection, empty dir acceptance, excluded dirs. All 11 tests pass.",
+      "createdAt": "2026-07-25T00:00:00.000Z",
+      "updatedAt": "2026-07-25T14:46:42.867Z",
+      "doneAt": "2026-07-25T14:52:42.881Z"
+    },
+    {
+      "id": "H-4",
+      "title": "No LICENSE file — package.json claims MIT but no license text ships",
+      "status": "done",
+      "parent": "",
+      "blockedBy": [],
+      "notes": "Fixed: Created MIT LICENSE file and added it to package.json files array. npm tarball now ships license text.",
+      "createdAt": "2026-07-25T00:00:00.000Z",
+      "updatedAt": "2026-07-25T14:37:59.243Z",
+      "doneAt": "2026-07-25T14:39:00.882Z"
+    },
+    {
+      "id": "H-5",
+      "title": "README doesn't document CLI usage (npx @vdpdev/harness)",
+      "status": "done",
+      "parent": "",
+      "blockedBy": [],
+      "notes": "Fixed: Added 'Usage' section to README showing 'npx @vdpdev/harness my-project' as the primary entry point. Separated scaffold usage from contributor quick start.",
+      "createdAt": "2026-07-25T00:00:00.000Z",
+      "updatedAt": "2026-07-25T14:37:59.384Z",
+      "doneAt": "2026-07-25T14:39:00.994Z"
+    },
+    {
+      "id": "H-6",
+      "title": "README scripts table has wrong command syntax for tickets",
+      "status": "done",
+      "parent": "",
+      "blockedBy": [],
+      "notes": "Won't-fix: pnpm run tickets list works correctly. pnpm passes 'list' as argument to scripts/tickets.ts which dispatches to the list command. Both 'pnpm run tickets list' and 'pnpm run tickets:list' produce identical output.",
+      "createdAt": "2026-07-25T00:00:00.000Z",
+      "updatedAt": "2026-07-25T00:00:00.000Z",
+      "doneAt": "2026-07-25T12:19:53.341Z"
+    },
+    {
+      "id": "H-7",
+      "title": "--quick flag in local-ci.sh is dead code — does nothing",
+      "status": "done",
+      "parent": "",
+      "blockedBy": [],
+      "notes": "Fixed: local-ci.sh now passes 'quick' arg to repo-health when QUICK=1. Step 9 conditionally runs 'pnpm run repo-health quick' instead of always running the full suite.",
+      "createdAt": "2026-07-25T00:00:00.000Z",
+      "updatedAt": "2026-07-25T14:37:59.543Z",
+      "doneAt": "2026-07-25T14:39:01.097Z"
+    },
+    {
+      "id": "H-8",
+      "title": "TOCTOU race in ticket mutations — read outside lock, write inside",
+      "status": "done",
+      "parent": "",
+      "blockedBy": [],
+      "notes": "Fixed: Moved readJson() inside withLock() callback in claim.ts, done.ts, release.ts, and add.ts. Read-modify-write is now atomic under the lock. Concurrent agents can no longer clobber each other's changes.",
+      "createdAt": "2026-07-25T00:00:00.000Z",
+      "updatedAt": "2026-07-25T14:39:29.286Z",
+      "doneAt": "2026-07-25T14:41:04.424Z"
+    },
+    {
+      "id": "H-9",
+      "title": "release command bypasses FSM transition guards",
+      "status": "done",
+      "parent": "",
+      "blockedBy": [],
+      "notes": "Fixed: Added canTransition('ticket', ticket.status, 'release', ...) check to release.ts before mutating status. release now validates FSM transitions like claim and done do.",
+      "createdAt": "2026-07-25T00:00:00.000Z",
+      "updatedAt": "2026-07-25T14:39:29.393Z",
+      "doneAt": "2026-07-25T14:41:04.541Z"
+    },
+    {
+      "id": "H-10",
+      "title": "check-package-manager postinstall is a no-op — warns but never blocks",
+      "status": "done",
+      "parent": "",
+      "blockedBy": [],
+      "notes": "Won't-fix: CONTRIBUTING.md:16-17 explicitly states 'the postinstall script only warns — but you'll drift from the lockfile, so prefer pnpm.' This is intentional non-blocking behavior, not a bug. The LLM that filed this didn't read CONTRIBUTING.md.",
+      "createdAt": "2026-07-25T00:00:00.000Z",
+      "updatedAt": "2026-07-25T00:00:00.000Z",
+      "doneAt": "2026-07-25T12:20:58.368Z"
+    },
+    {
+      "id": "H-11",
+      "title": "No JSON.parse error handling in readJson / readStore",
+      "status": "done",
+      "parent": "",
+      "blockedBy": [],
+      "notes": "Fixed: Added try/catch to readJson (tickets/read-json.ts) and readStore (jsonstore/read-store.ts). Corrupted JSON now shows actionable error message and exits 1 instead of raw SyntaxError.",
+      "createdAt": "2026-07-25T00:00:00.000Z",
+      "updatedAt": "2026-07-25T14:41:34.020Z",
+      "doneAt": "2026-07-25T14:42:52.650Z"
+    },
+    {
+      "id": "H-12",
+      "title": "tsconfig rootDir excludes test/ from typecheck",
+      "status": "done",
+      "parent": "",
+      "blockedBy": [],
+      "notes": "Won't-fix: tsconfig correctly scopes to src/ because this is a boilerplate/scaffold project. Test files in test/ are user-written and depend on src/ — they cannot be typechecked until the user actually writes them. This is standard for scaffold projects.",
+      "createdAt": "2026-07-25T00:00:00.000Z",
+      "updatedAt": "2026-07-25T00:00:00.000Z",
+      "doneAt": "2026-07-25T12:20:59.618Z"
+    },
+    {
+      "id": "H-13",
+      "title": "Node version mismatch: .nvmrc=22 but engines>=18",
+      "status": "done",
+      "parent": "",
+      "blockedBy": [],
+      "notes": "Won't-fix: .nvmrc pins Node 22 for local development convenience. engines>=18 declares minimum supported version. These serve different purposes — .nvmrc is for contributors, engines is for consumers. Standard pattern for projects tested on one version but supporting older LTS.",
+      "createdAt": "2026-07-25T00:00:00.000Z",
+      "updatedAt": "2026-07-25T00:00:00.000Z",
+      "doneAt": "2026-07-25T12:21:01.022Z"
+    },
+    {
+      "id": "H-14",
+      "title": "Missing npm registry metadata (repository, keywords, author)",
+      "status": "done",
+      "parent": "",
+      "blockedBy": [],
+      "notes": "Fixed: Added repository, homepage, bugs, keywords, and author fields to package.json. npm page now shows proper metadata and links.",
+      "createdAt": "2026-07-25T00:00:00.000Z",
+      "updatedAt": "2026-07-25T14:36:48.212Z",
+      "doneAt": "2026-07-25T14:37:32.794Z"
+    },
+    {
+      "id": "H-15",
+      "title": "Bin/ excluded from linting — security-relevant file unprotected",
+      "status": "done",
+      "parent": "",
+      "blockedBy": [],
+      "notes": "Fixed: Removed bin/ from ESLint ignores. Added bin-specific config with Node.js globals (process, console, import) so bin/index.js is now linted.",
+      "createdAt": "2026-07-25T00:00:00.000Z",
+      "updatedAt": "2026-07-25T14:41:34.243Z",
+      "doneAt": "2026-07-25T14:42:52.918Z"
+    },
+    {
+      "id": "H-16",
+      "title": "npm tarball ships stale agent scratch data",
+      "status": "done",
+      "blockedBy": [],
+      "notes": "Fixed: Replaced 'scripts/' in package.json files array with explicit subdirectories (scripts/tickets.ts, scripts/tickets/, scripts/jsonstore-layers/, etc.) to exclude scripts/.tmp/ from the npm tarball. Verified with npm pack --dry-run — temp.json no longer ships.",
+      "createdAt": "2026-07-25T12:18:13.809Z",
+      "updatedAt": "2026-07-25T14:35:16.504Z",
+      "doneAt": "2026-07-25T14:35:56.473Z"
+    },
+    {
+      "id": "H-17",
+      "title": "npm tarball ships internal tickets.json",
+      "status": "done",
+      "blockedBy": [],
+      "notes": "Fixed in same commit as H-016. Removed tickets.json from package.json files array. Internal tickets no longer ship to scaffolded projects. bin/index.js:84-90 already resets tickets.json for scaffolded projects, so the entry point still works.",
+      "createdAt": "2026-07-25T12:18:23.412Z",
+      "updatedAt": "2026-07-25T12:18:23.412Z",
+      "doneAt": "2026-07-25T14:36:26.389Z"
+    },
+    {
+      "id": "H-18",
+      "title": "package.json missing main/exports/types",
+      "status": "done",
+      "blockedBy": [],
+      "notes": "Won't-fix: This is a CLI scaffolder, not a library. src/index.ts is a placeholder comment for users to replace. No library entry points are needed because the package is consumed via 'npx @vdpdev/harness <name>' (bin entry), not as an import.",
+      "createdAt": "2026-07-25T12:18:25.128Z",
+      "updatedAt": "2026-07-25T12:18:25.129Z",
+      "doneAt": "2026-07-25T12:21:02.243Z"
+    },
+    {
+      "id": "H-19",
+      "title": "SECURITY.md contradicts package version",
+      "status": "done",
+      "blockedBy": [],
+      "notes": "Fixed: Removed 'pre-1.0' from SECURITY.md:5 to match package.json version 1.0.0. Now says 'under active development' without version claim.",
+      "createdAt": "2026-07-25T12:18:26.501Z",
+      "updatedAt": "2026-07-25T14:36:48.103Z",
+      "doneAt": "2026-07-25T14:37:32.601Z"
+    },
+    {
+      "id": "H-20",
+      "title": "verify-coverage exits 0 on failures in non-CI mode",
+      "status": "done",
+      "blockedBy": [],
+      "notes": "Fixed: Removed the 'if (CI) process.exit(1)' guard in verify-coverage.ts. Now always exits 1 on failures regardless of mode. Local runs no longer give false green.",
+      "createdAt": "2026-07-25T12:18:28.700Z",
+      "updatedAt": "2026-07-25T14:41:34.129Z",
+      "doneAt": "2026-07-25T14:42:52.782Z"
+    },
+    {
+      "id": "H-21",
+      "title": "test-coverage write-store has no locking",
+      "status": "done",
+      "blockedBy": [],
+      "notes": "Fixed: Added set-fields-batch command to jsonstore that applies multiple record patches under a single lock. test-coverage write-store now calls set-fields-batch instead of N separate set-fields calls. Atomicity guaranteed.",
+      "createdAt": "2026-07-25T12:18:30.924Z",
+      "updatedAt": "2026-07-25T14:43:30.573Z",
+      "doneAt": "2026-07-25T14:46:23.559Z"
+    },
+    {
+      "id": "H-22",
+      "title": "release-lock doesn't verify ownership",
+      "status": "done",
+      "blockedBy": [],
+      "notes": "Fixed: Both release-lock implementations (tickets and jsonstore) now read the PID from the lock file and skip deletion if the holder is a different alive process. Only deletes if current PID matches or holder is dead.",
+      "createdAt": "2026-07-25T12:18:32.735Z",
+      "updatedAt": "2026-07-25T14:43:30.688Z",
+      "doneAt": "2026-07-25T14:46:23.675Z"
+    },
+    {
+      "id": "H-23",
+      "title": "postinstall depends on tsx which may not be available",
+      "status": "done",
+      "blockedBy": [],
+      "notes": "Fixed: Removed misleading '(y/n)' prompt and '(Skipping interactive prompt)' text from check-package-manager.ts. Now just warns cleanly. Also simplified the detection logic.",
+      "createdAt": "2026-07-25T12:18:35.248Z",
+      "updatedAt": "2026-07-25T14:43:30.811Z",
+      "doneAt": "2026-07-25T14:46:23.788Z"
+    },
+    {
+      "id": "H-24",
+      "title": "busy-wait spin lock burns CPU",
+      "status": "done",
+      "blockedBy": [],
+      "notes": "Fixed: Replaced busy-wait spin loops in both acquire-lock implementations with Atomics.wait which suspends the thread without burning CPU.",
+      "createdAt": "2026-07-25T12:18:37.773Z",
+      "updatedAt": "2026-07-25T14:43:30.919Z",
+      "doneAt": "2026-07-25T14:46:23.908Z"
+    },
+    {
+      "id": "H-25",
+      "title": "glob-to-suffix missing null guard",
+      "status": "done",
+      "blockedBy": [],
+      "notes": "Fixed: Added null/empty guards to glob-to-suffix.ts. Returns empty string for undefined/empty input instead of crashing with TypeError.",
+      "createdAt": "2026-07-25T12:18:39.618Z",
+      "updatedAt": "2026-07-25T14:36:48.333Z",
+      "doneAt": "2026-07-25T14:37:32.993Z"
+    },
+    {
+      "id": "H-26",
+      "title": ".env.example is empty — no guidance for new users",
+      "status": "done",
+      "blockedBy": [],
+      "notes": "Won't-fix: project uses no environment variables. Empty .env.example serves as a signal that env vars may be needed in forked projects. Harmless placeholder.",
+      "createdAt": "2026-07-25T12:19:55.632Z",
+      "updatedAt": "2026-07-25T12:19:55.632Z",
+      "doneAt": "2026-07-25T12:19:57.016Z"
+    }
+  ]
+}

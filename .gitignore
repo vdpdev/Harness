@@ -1,0 +1,13 @@
+.idea
+node_modules
+**/node_modules/**
+**/dist/**
+.env
+**/debugLog.txt
+.tmp/
+package-lock.json
+
+# Agent tooling scratch dir (untracked, not repo content)
+
+# Husky hook support dir (generated, not repo content)
+.husky/_
