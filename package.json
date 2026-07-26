@@ -1,6 +1,6 @@
 {
   "name": "@vdpdev/harness",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "TypeScript project development harness — boilerplate for agent-native workflows",
   "repository": {
     "type": "git",

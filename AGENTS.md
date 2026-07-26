@@ -40,6 +40,48 @@ This is a **hard constraint** — violations must be caught during review and mu
 
 This is a **hard constraint** — violations must be caught during review and must not be merged.
 
+### Architecture-first decisions (MANDATORY)
+
+When choosing between technologies, frameworks, patterns, or approaches for **non-business-logic
+decisions**, always pick the most comprehensive, architecturally sound option. Do not ask the
+human — just choose the strongest tool.
+
+This applies to **infrastructure and tooling choices**, not business requirements (which need
+human input).
+
+#### Preferred stack (authoritative)
+
+| Layer              | Always use                                             | Never use instead                                    |
+| ------------------ | ------------------------------------------------------ | ---------------------------------------------------- |
+| ORM / DB access    | **Drizzle ORM**                                        | Raw SQL, Knex, TypeORM, Prisma, Sequelize            |
+| Backend framework  | **NestJS**                                             | Express, Fastify, Hono, Koa, raw `http.createServer` |
+| Frontend framework | **React** (with TypeScript)                            | Raw HTML+JS, Vue, Svelte, Angular                    |
+| Admin panel        | **Refine** (headless)                                  | AdminJS, Retool, raw CRUD forms, manual admin pages  |
+| State management   | **Refine data hooks** (`useList`, `useOne`, etc.)      | Manual `fetch` + `useState`, Axios without Refine    |
+| Form handling      | **React Hook Form** (via Refine)                       | Manual controlled inputs, Formik                     |
+| Validation         | **class-validator** (NestJS) / **Zod** (frontend)      | Manual `if` checks without schema validation         |
+| Testing            | **Vitest** or **Node test runner** (existing)          | Jest (unless already in use), Mocha                  |
+| CSS                | **Tailwind CSS** or **Mantine** (if Refine-compatible) | Raw CSS files, styled-components, inline styles      |
+| Auth               | **JWT with Passport** (NestJS `@nestjs/passport`)      | Session cookies, custom token logic, no auth         |
+| Real-time          | **NestJS EventEmitter / SSE**                          | Raw `EventEmitter`, Socket.IO without NestJS         |
+| DI                 | **NestJS built-in DI**                                 | Manual `new` wiring, tsyringe, InversifyJS           |
+| API docs           | **NestJS Swagger**                                     | Manual OpenAPI files, no API docs                    |
+| Static serving     | **NestJS `ServeStaticModule`**                         | Express `express.static()`                           |
+
+#### Decision rule
+
+If you encounter a choice not in this table:
+
+1. Pick the option that is most **structured, type-safe, and testable**.
+2. Prefer frameworks with **built-in DI, decorators, and module systems** over minimal libraries.
+3. When in doubt, go **more** framework, not less.
+
+#### Exceptions (require human approval)
+
+- Business logic decisions (pricing strategy, alert thresholds, data model design)
+- Cost-impacting infrastructure choices (cloud provider, managed service vs self-hosted)
+- Removing an existing dependency (must justify and get approval)
+
 ### Completeness
 
 - **Strict completeness:** Never use `// TODO` or placeholders. Implement fully in one go.
